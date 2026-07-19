@@ -231,22 +231,24 @@ ${signatureBlock}`;
   const bodyTextarea = document.getElementById('bodyText');
   const mailBtn = document.getElementById('mailBtn');
 
+  function buildMailtoLink(body) {
+    // iOS Mail (and some other clients) collapse bare \n into spaces in mailto
+    // bodies unless line breaks are sent as CRLF (\r\n). Normalize before encoding.
+    const crlfBody = body.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
+    return "mailto:" + to.split(',').map(encodeURIComponent).join(',') +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(crlfBody);
+  }
+
   function refresh() {
     const body = bodyTemplate(nameInput.value);
     bodyTextarea.value = body;
-    const mailtoLink = "mailto:" + to.split(',').map(encodeURIComponent).join(',') +
-      "?subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(body);
-    mailBtn.setAttribute('href', mailtoLink);
+    mailBtn.setAttribute('href', buildMailtoLink(body));
   }
 
   nameInput.addEventListener('input', refresh);
   bodyTextarea.addEventListener('input', function() {
-    const body = bodyTextarea.value;
-    const mailtoLink = "mailto:" + to.split(',').map(encodeURIComponent).join(',') +
-      "?subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(body);
-    mailBtn.setAttribute('href', mailtoLink);
+    mailBtn.setAttribute('href', buildMailtoLink(bodyTextarea.value));
   });
 
   refresh();
