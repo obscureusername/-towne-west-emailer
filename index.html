@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email The Developer & Your Representatives — Towne West Development</title>
+<style>
+  :root {
+    --ink: #14202b;
+    --muted: #5b6b7a;
+    --paper: #f4f7fa;
+    --card: #ffffff;
+    --line: #dde4ea;
+    --blue: #1a5fb4;
+    --blue-dark: #144a8f;
+    --blue-pale: #eaf1fb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 600px; margin: 0 auto; padding: 28px 18px 60px; }
+
+  .banner {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: var(--blue-pale);
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 14px;
+  }
+  h1 { font-size: 1.55rem; font-weight: 700; margin: 0 0 8px; line-height: 1.28; }
+  .lede { color: var(--muted); font-size: 1rem; margin-bottom: 26px; }
+  .lede strong { color: var(--ink); }
+
+  .steps { display: flex; gap: 6px; margin-bottom: 22px; }
+  .step-pill {
+    flex: 1;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--blue);
+    background: var(--blue-pale);
+    border-radius: 6px;
+    padding: 8px 4px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+
+  .recipient-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.92rem;
+  }
+  .recipient-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .recipient-row:first-child { padding-top: 0; }
+  .avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--blue-pale); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.78rem; flex-shrink: 0;
+  }
+  .recipient-name { font-weight: 600; }
+  .recipient-email { color: var(--muted); font-size: 0.82rem; }
+
+  .subject-text { font-size: 0.95rem; font-weight: 600; }
+
+  textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px;
+    resize: vertical;
+    background: #fbfcfd;
+  }
+
+  .cta {
+    display: block;
+    text-align: center;
+    background: var(--blue);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.02rem;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 22px 0 8px;
+  }
+  .cta:active { background: var(--blue-dark); }
+  .cta-note { font-size: 0.8rem; color: var(--muted); text-align: center; margin-bottom: 4px; }
+
+  .copy-btn {
+    font-size: 0.82rem;
+    font-weight: 700;
+    background: #fff;
+    border: 1.5px solid var(--blue);
+    color: var(--blue);
+    padding: 8px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 12px;
+  }
+  .copy-btn.copied { background: var(--blue); color: #fff; }
+
+  .footer-note {
+    font-size: 0.75rem;
+    color: #9aa7b3;
+    text-align: center;
+    margin-top: 28px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="banner">Proof of concept — placeholder text</span>
+  <h1>Send a message about the Towne West development</h1>
+  <p class="lede">The public meeting is in a few days — <strong>emailing takes under two minutes.</strong> Review the message below, then tap send.</p>
+
+  <div class="card">
+    <h2>Your message goes to</h2>
+    <div class="recipient-row">
+      <div class="avatar">R</div>
+      <div>
+        <div class="recipient-name">Representative (placeholder)</div>
+        <div class="recipient-email">rep.dummy@example.gov</div>
+      </div>
+    </div>
+    <div class="recipient-row">
+      <div class="avatar">D</div>
+      <div>
+        <div class="recipient-name">Developer (placeholder)</div>
+        <div class="recipient-email">developer.dummy@example.com</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Subject</h2>
+    <div class="subject-text">Lorem Ipsum Dolor Sit Amet Consectetur</div>
+  </div>
+
+  <div class="card">
+    <h2>Message — feel free to edit before sending</h2>
+    <textarea id="bodyText" rows="13" readonly></textarea>
+    <button class="copy-btn" id="copyBtn" onclick="copyBody()">Copy message text</button>
+  </div>
+
+  <a class="cta" id="mailBtn" href="#">Open Email &amp; Send →</a>
+  <p class="cta-note">Opens your phone's mail app with everything pre-filled and editable.</p>
+
+  <p class="footer-note">This is a test page using placeholder Lorem Ipsum content — not the real campaign message.</p>
+</div>
+
+<script>
+  const subject = "Lorem Ipsum Dolor Sit Amet Consectetur";
+  const body = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+
+[Add a sentence or two here about how this affects you]
+
+Thank you for your time and consideration.
+
+Sincerely,
+[Your name]
+[Your address]`;
+
+  const to = "rep.dummy@example.gov,developer.dummy@example.com";
+
+  document.getElementById('bodyText').value = body;
+
+  const mailtoLink = "mailto:" + to.split(',').map(encodeURIComponent).join(',') +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
+
+  document.getElementById('mailBtn').setAttribute('href', mailtoLink);
+
+  function copyBody() {
+    const textarea = document.getElementById('bodyText');
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    try {
+      navigator.clipboard.writeText(textarea.value);
+    } catch (e) {
+      document.execCommand('copy');
+    }
+    const btn = document.getElementById('copyBtn');
+    const original = btn.textContent;
+    btn.textContent = "Copied!";
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1800);
+  }
+</script>
+</body>
+</html>
