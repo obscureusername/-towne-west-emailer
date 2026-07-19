@@ -41,18 +41,6 @@
   .lede { color: var(--muted); font-size: 1rem; margin-bottom: 26px; }
   .lede strong { color: var(--ink); }
 
-  .steps { display: flex; gap: 6px; margin-bottom: 22px; }
-  .step-pill {
-    flex: 1;
-    text-align: center;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--blue);
-    background: var(--blue-pale);
-    border-radius: 6px;
-    padding: 8px 4px;
-  }
-
   .card {
     background: var(--card);
     border: 1px solid var(--line);
@@ -67,6 +55,30 @@
     letter-spacing: 0.06em;
     color: var(--muted);
     margin: 0 0 12px;
+  }
+
+  .name-card {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-pale);
+  }
+  .name-input {
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 11px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    background: #fbfcfd;
+  }
+  .name-input:focus {
+    outline: none;
+    border-color: var(--blue);
+  }
+  .name-hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 6px;
   }
 
   .recipient-row {
@@ -142,9 +154,15 @@
 <body>
 <div class="wrap">
 
-  <span class="banner">Proof of concept — placeholder text</span>
+  <span class="banner">⚠ Recipient addresses are still placeholders</span>
   <h1>Send a message about the Towne West development</h1>
-  <p class="lede">The public meeting is in a few days — <strong>emailing takes under two minutes.</strong> Review the message below, then tap send.</p>
+  <p class="lede">The public meeting is in a few days — <strong>emailing takes under two minutes.</strong> Add your name below, then tap send — no edits needed.</p>
+
+  <div class="card name-card">
+    <h2>Your Name</h2>
+    <input type="text" id="nameInput" class="name-input" placeholder="e.g. John Smith" autocomplete="name">
+    <p class="name-hint">This signs the message below. You can still edit anything before sending.</p>
+  </div>
 
   <div class="card">
     <h2>Your message goes to</h2>
@@ -166,46 +184,72 @@
 
   <div class="card">
     <h2>Subject</h2>
-    <div class="subject-text">Lorem Ipsum Dolor Sit Amet Consectetur</div>
+    <div class="subject-text">Towne West Development — Requested Revisions from a Liberty Ridge Resident</div>
   </div>
 
   <div class="card">
     <h2>Message — feel free to edit before sending</h2>
-    <textarea id="bodyText" rows="13" readonly></textarea>
+    <textarea id="bodyText" rows="20"></textarea>
     <button class="copy-btn" id="copyBtn" onclick="copyBody()">Copy message text</button>
   </div>
 
   <a class="cta" id="mailBtn" href="#">Open Email &amp; Send →</a>
   <p class="cta-note">Opens your phone's mail app with everything pre-filled and editable.</p>
 
-  <p class="footer-note">This is a test page using placeholder Lorem Ipsum content — not the real campaign message.</p>
+  <p class="footer-note">Recipient addresses shown above are placeholders — update the "to" list in this page before sharing it widely.</p>
 </div>
 
 <script>
-  const subject = "Lorem Ipsum Dolor Sit Amet Consectetur";
-  const body = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-
-[Add a sentence or two here about how this affects you]
-
-Thank you for your time and consideration.
-
-Sincerely,
-[Your name]
-[Your address]`;
-
+  const subject = "Towne West Development — Requested Revisions from a Liberty Ridge Resident";
   const to = "rep.dummy@example.gov,developer.dummy@example.com";
 
-  document.getElementById('bodyText').value = body;
+  function bodyTemplate(name) {
+    const signatureName = name && name.trim().length > 0 ? name.trim() : null;
+    const signatureBlock = signatureName
+      ? `${signatureName}\nLiberty Ridge Resident`
+      : `Liberty Ridge Resident`;
 
-  const mailtoLink = "mailto:" + to.split(',').map(encodeURIComponent).join(',') +
-    "?subject=" + encodeURIComponent(subject) +
-    "&body=" + encodeURIComponent(body);
+    return `Dear Westfield City Council Members and Towne West Development Team,
 
-  document.getElementById('mailBtn').setAttribute('href', mailtoLink);
+As a Liberty Ridge resident, I support responsible growth in Westfield, but I ask that the Towne West proposal be revised to better fit the neighborhoods it borders.
+
+Specifically, I request:
+
+1. A real natural buffer. Reconnect the proposed pond to the originally envisioned larger water feature, and preserve the mature tree line, to create at least a 300-foot natural transition between Liberty Ridge and new development — protecting privacy and views while giving Towne West a scenic amenity of its own (kayaking, trails, wildlife viewing).
+
+2. Lower-density housing directly on the property line. Rather than multifamily rental buildings directly behind existing homes, we ask that this strip be limited to for-sale/owner-occupied homes, or alternatively, housing no taller than two stories — reducing the noise, traffic, and nighttime activity directly behind established single-family homes.
+
+3. No direct connection to Liberty Ridge. Please don't link Towne West to Liberty Ridge via roads, sidewalks, or trails — Liberty Ridge was designed as self-contained, and preserving that supports the safety and privacy residents expected when buying here.
+
+These changes would let Towne West grow while respecting the neighborhoods around it. Thank you for your time and consideration.
+
+Sincerely,
+${signatureBlock}`;
+  }
+
+  const nameInput = document.getElementById('nameInput');
+  const bodyTextarea = document.getElementById('bodyText');
+  const mailBtn = document.getElementById('mailBtn');
+
+  function refresh() {
+    const body = bodyTemplate(nameInput.value);
+    bodyTextarea.value = body;
+    const mailtoLink = "mailto:" + to.split(',').map(encodeURIComponent).join(',') +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
+    mailBtn.setAttribute('href', mailtoLink);
+  }
+
+  nameInput.addEventListener('input', refresh);
+  bodyTextarea.addEventListener('input', function() {
+    const body = bodyTextarea.value;
+    const mailtoLink = "mailto:" + to.split(',').map(encodeURIComponent).join(',') +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
+    mailBtn.setAttribute('href', mailtoLink);
+  });
+
+  refresh();
 
   function copyBody() {
     const textarea = document.getElementById('bodyText');
