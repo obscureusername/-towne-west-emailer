@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <title>Email The Developer & Your Representatives — Towne West Development</title>
 <style>
   :root {
@@ -16,6 +17,7 @@
     --blue-pale: #eaf1fb;
   }
   * { box-sizing: border-box; }
+  html { color-scheme: light; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -79,6 +81,34 @@
     font-size: 0.78rem;
     color: var(--muted);
     margin-top: 6px;
+  }
+
+  .recipient-summary {
+    font-size: 0.92rem;
+    margin: 0;
+  }
+  .recipient-summary a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .recipient-summary a:hover { text-decoration: underline; }
+
+  .recipient-list-section {
+    scroll-margin-top: 20px;
+  }
+  .recipient-list-item {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.88rem;
+  }
+  .recipient-list-item:last-child { border-bottom: none; }
+  .recipient-list-item .who { font-weight: 600; display: block; }
+  .recipient-list-item .addr {
+    color: var(--muted);
+    display: block;
+    margin-top: 2px;
+    word-break: break-word;
   }
 
   .recipient-row {
@@ -154,9 +184,9 @@
 <body>
 <div class="wrap">
 
-  <span class="banner">⚠ Recipient addresses are still placeholders</span>
+  <span class="banner">⚠ Developer's email still needs to be added</span>
   <h1>Send a message about the Towne West development</h1>
-  <p class="lede">The meeting with the developers is on Wednesday, 7/22 — <strong>emailing takes under two minutes.</strong> Add your name below, then tap send — no edits needed.</p>
+  <p class="lede">The public meeting is in a few days — <strong>emailing takes under two minutes.</strong> Add your name below, then tap send — no edits needed.</p>
 
   <div class="card name-card">
     <h2>Your Name</h2>
@@ -166,20 +196,7 @@
 
   <div class="card">
     <h2>Your message goes to</h2>
-    <div class="recipient-row">
-      <div class="avatar">R</div>
-      <div>
-        <div class="recipient-name">Representative (placeholder)</div>
-        <div class="recipient-email">rep.dummy@example.gov</div>
-      </div>
-    </div>
-    <div class="recipient-row">
-      <div class="avatar">D</div>
-      <div>
-        <div class="recipient-name">Developer (placeholder)</div>
-        <div class="recipient-email">developer.dummy@example.com</div>
-      </div>
-    </div>
+    <p class="recipient-summary">Developers and local representatives — <a href="#recipient-list">see the full list of 10 recipients ↓</a></p>
   </div>
 
   <div class="card">
@@ -196,12 +213,27 @@
   <a class="cta" id="mailBtn" href="#">Open Email &amp; Send →</a>
   <p class="cta-note">Opens your phone's mail app with everything pre-filled and editable.</p>
 
-  <p class="footer-note">Recipient addresses shown above are placeholders — update the "to" list in this page before sharing it widely.</p>
+  <div class="card recipient-list-section" id="recipient-list">
+    <h2>Full recipient list (10)</h2>
+    <div class="recipient-list-item"><span class="who">Planning &amp; Zoning Division</span><span class="addr">planning@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">Advisory Planning Commission</span><span class="addr">apc@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">Mayor</span><span class="addr">swillis@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">City Council Rep, Patrick Tamm</span><span class="addr">ptamm@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">At-large Council Member, Chad Huff</span><span class="addr">chuff@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">At-large Council Member, Kurt Wanninger</span><span class="addr">kwanninger@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">Council Member, John Dartt</span><span class="addr">jdartt@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">Council Member, Victor McCarty</span><span class="addr">vmccarty@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">Council Member, Joe Duepner</span><span class="addr">jduepner@westfield.in.gov</span></div>
+    <div class="recipient-list-item"><span class="who">Council Member, Noah Herron</span><span class="addr">nherron@westfield.in.gov</span></div>
+  </div>
+
+  <p class="footer-note">Not included above: the councilmembers@westfield.in.gov group email, left off to keep the link shorter and avoid duplicate sends. Update the developer's email in the "to" list in this page once you have it.</p>
 </div>
 
 <script>
   const subject = "Towne West Development — Requested Revisions from a Liberty Ridge Resident";
-  const to = "rep.dummy@example.gov,developer.dummy@example.com";
+  const to = "planning@westfield.in.gov,apc@westfield.in.gov,swillis@westfield.in.gov,ptamm@westfield.in.gov,chuff@westfield.in.gov,kwanninger@westfield.in.gov,jdartt@westfield.in.gov,vmccarty@westfield.in.gov,jduepner@westfield.in.gov,nherron@westfield.in.gov";
+  // TODO: add developer contact email(s) to this list once available
 
   function bodyTemplate(name) {
     const signatureName = name && name.trim().length > 0 ? name.trim() : null;
@@ -215,7 +247,7 @@ As a Liberty Ridge resident, I support responsible growth in Westfield, but I as
 
 Specifically, I request:
 
-1. A real natural buffer. Reconnect the originally proposed pond to the newly envisioned larger water feature, and preserve the mature tree line, to create at least a 300-foot natural transition between Liberty Ridge and new development — protecting privacy and views while giving Towne West a scenic amenity of its own (kayaking, trails, wildlife viewing).
+1. A real natural buffer. Reconnect the proposed pond to the originally envisioned larger water feature, and preserve the mature tree line, to create at least a 300-foot natural transition between Liberty Ridge and new development — protecting privacy and views while giving Towne West a scenic amenity of its own (kayaking, trails, wildlife viewing).
 
 2. Lower-density housing directly on the property line. Rather than multifamily rental buildings directly behind existing homes, we ask that this strip be limited to for-sale/owner-occupied homes, or alternatively, housing no taller than two stories — reducing the noise, traffic, and nighttime activity directly behind established single-family homes.
 
