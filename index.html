@@ -177,19 +177,6 @@
   }
   .copy-btn.copied { background: var(--blue); color: #fff; }
 
-  .meeting-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .meeting-list li {
-    padding: 9px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 0.9rem;
-  }
-  .meeting-list li:last-child { border-bottom: none; }
-  .meeting-list li .date-label { font-weight: 600; color: var(--ink); }
-
   .footer-note {
     font-size: 0.75rem;
     color: #9aa7b3;
@@ -202,7 +189,16 @@
 <div class="wrap">
 
   <h1>Send a message about the Towne West development</h1>
-  <p class="lede" id="ledeText"><a href="#meeting-list-section">The next meeting is on <span id="nextMeetingDate">7/22</span>.</a> Your voice matters. <strong><br>Emailing takes a few seconds in three easy steps:</strong><br>1. Add your name below<br>2. Make any edits you want<br>3. Tap "Open Email &amp; Send"</p>
+  <p class="lede">Help protect our neighborhood's family-friendly streets. <strong>Send your message in three easy steps:</strong><br>1. Add your name below<br>2. Review or personalize the message<br>3. Tap "Open Email &amp; Send"</p>
+
+  <div class="card">
+    <h2>Keep Liberty Ridge's streets safe for our children</h2>
+    <p>Liberty Ridge is a neighborhood where children ride bikes, play outside, and walk to friends' houses. That family-friendly environment is one of the reasons many of us chose to live here.</p>
+    <p>With hundreds of new apartments planned next door, connecting Towne West's roads to Liberty Ridge could introduce substantial additional traffic onto residential streets. Streets that currently serve local families could become through routes for drivers entering or leaving a much larger development.</p>
+    <p>Recent pedestrian tragedies in our community remind us why safety must be considered before roadway decisions are made—not only after someone is hurt.</p>
+    <p><strong>We ask that Towne West have no direct roadway connections to Liberty Ridge.</strong> We support evaluating a limited number of thoughtfully designed pedestrian-only connections that allow access to nearby amenities without adding vehicle traffic to our neighborhood.</p>
+    <p>We also ask the City to assess projected traffic, potential cut-through routes, and children's pedestrian and bicycle safety before approving access plans.</p>
+  </div>
 
   <div class="card name-card">
     <h2>Your Name</h2>
@@ -217,7 +213,7 @@
 
   <div class="card">
     <h2>Subject</h2>
-    <div class="subject-text">Towne West Development: Requested Revisions from a Liberty Ridge Resident</div>
+    <div class="subject-text">Towne West Development — Protect Liberty Ridge's Residential Streets</div>
   </div>
 
   <div class="card">
@@ -228,16 +224,6 @@
 
   <a class="cta" id="mailBtn" href="#">Open Email &amp; Send →</a>
   <p class="cta-note">Opens your phone's mail app with everything pre-filled and editable.</p>
-
-  <div class="card" id="meeting-list-section">
-    <h2>Upcoming meeting dates</h2>
-    <ul class="meeting-list" id="meetingList">
-      <li data-date="2026-07-22">Official neighborhood meeting with the developer: <span class="date-label">7/22</span></li>
-      <li data-date="2026-07-27">Project's introduction at the city council: <span class="date-label">TBD</span></li>
-      <li data-date="2026-07-30">Meeting with Representatives: <span class="date-label">7/30</span></li>
-      <li data-date="2026-08-03">Advisory Plan Commission meeting: <span class="date-label">8/3</span></li>
-    </ul>
-  </div>
 
   <div class="card recipient-list-section" id="recipient-list">
     <h2>Full recipient list (10)</h2>
@@ -255,7 +241,7 @@
 </div>
 
 <script>
-  const subject = "Towne West Development: Requested Revisions from a Liberty Ridge Resident";
+  const subject = "Towne West Development — Protect Liberty Ridge's Residential Streets";
   const to = "planners@westfield.in.gov,apc@westfield.in.gov,swillis@westfield.in.gov,ptamm@westfield.in.gov,chuff@westfield.in.gov,kwanninger@westfield.in.gov,jdartt@westfield.in.gov,vmccarty@westfield.in.gov,jduepner@westfield.in.gov,nherron@westfield.in.gov";
   // TODO: add developer contact email(s) to this list once available
 
@@ -267,21 +253,21 @@
 
     return `Dear Westfield City Council Members,
 
-As a Liberty Ridge resident, I support responsible growth in Westfield, but I ask that the Towne West proposal be revised to better fit the neighborhoods it borders, with the goal of Towne West being a good neighbor to Liberty Ridge, not blindly hindering development.
+As a Liberty Ridge resident, I support responsible growth in Westfield. However, I strongly urge the City and Towne West developers not to create any roadway connections between Towne West and Liberty Ridge.
 
-Specifically, I request:
+One of the qualities that makes Liberty Ridge special is its family-friendly environment. Children regularly ride bicycles, play outside, and walk to friends' homes throughout our neighborhood. Our residential streets should remain safe places for these activities, not become through routes for vehicles traveling to and from a development with hundreds of new apartments.
 
-1. Restore the originally proposed boundary pond, or provide an equivalent permanent natural buffer, between Liberty Ridge and new development.
+Connecting these roads could introduce substantial additional traffic into our neighborhood, increasing the potential for vehicle-pedestrian conflicts and changing the character of the community. We should address these risks proactively, rather than waiting until a preventable tragedy occurs.
 
-2. No three-story buildings adjacent to Liberty Ridge and that housing directly on the property line be owner-occupied rather than rentals.
+I respectfully request that the City and developer:
 
-3. Preserve the mature trees along our shared property line.
+1. Eliminate all proposed roadway connections between Towne West and Liberty Ridge, ensuring that vehicle access to the new development is provided entirely through roads outside our neighborhood.
 
-4. No pedestrian or vehicle connection between Towne West and Liberty Ridge.
+2. Consider only limited, thoughtfully designed pedestrian connections that preserve neighborhood safety and privacy without introducing additional vehicle traffic.
 
-5. Strong landscaping, 100+ foot setbacks, lighting, and privacy protections along our shared property line.
+We welcome thoughtful development that benefits Westfield, but protecting the safety of children and families in existing neighborhoods must be a priority.
 
-These changes would let Towne West grow while respecting the neighborhoods around it. Thank you for your time and consideration.
+Thank you for your consideration.
 
 Sincerely,
 
@@ -333,44 +319,6 @@ ${signatureBlock}`;
     }, 1800);
   }
 
-  // --- Dynamic meeting dates ---
-  // Hides past meeting dates from the list below, and updates the
-  // "next meeting is on ___" line to whichever meeting is soonest
-  // relative to the visitor's actual local date.
-  function updateMeetingDates() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const items = Array.from(document.querySelectorAll('#meetingList li'));
-    let nextItem = null;
-
-    items.forEach(li => {
-      // Parse as local time (not UTC) by splitting the date string manually
-      const [y, m, d] = li.dataset.date.split('-').map(Number);
-      const meetingDate = new Date(y, m - 1, d);
-
-      if (meetingDate < today) {
-        li.style.display = 'none';
-      } else {
-        li.style.display = '';
-        if (!nextItem) {
-          nextItem = { date: meetingDate, label: li.querySelector('.date-label').textContent };
-        }
-      }
-    });
-
-    const nextMeetingEl = document.getElementById('nextMeetingDate');
-    const ledeEl = document.getElementById('ledeText');
-    if (nextItem) {
-      nextMeetingEl.textContent = nextItem.label;
-    } else {
-      // No upcoming meetings left in the list — swap the sentence rather
-      // than show a stale or missing date.
-      ledeEl.innerHTML = `No meetings are currently scheduled — check with the HOA for updates. Your voice still matters. <strong><br>Emailing takes a few seconds in three easy steps:</strong><br>1. Add your name below<br>2. Make any edits you want<br>3. Tap "Open Email &amp; Send"`;
-    }
-  }
-
-  updateMeetingDates();
 </script>
 <!-- Cloudflare Web Analytics  --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "57ff4365292645b88edffbaab9a0a5b4"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
